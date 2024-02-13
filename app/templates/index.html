@@ -1,0 +1,55 @@
+<!--herrencia de una plantilla jinja2 % instrucion index %-->
+{% extends './layout.html' %}
+
+{% block title %}{{ data.titulo}}{% endblock %}
+
+{% block body %}
+<h1><!--jinja2 {{ variable }}-->
+    {{data.bienvenida}}
+</h1>
+<ul>
+    {% for lista in data.Menu %}
+    <li>{{ lista }}</li>
+    {% endfor %}
+</ul>
+<br></br>
+
+<table border="1">
+    {% for lista in data.Menu %}
+    
+    <tr><td>{{ lista }} </td></tr>
+    
+    {% endfor %}
+</table>
+
+<br>
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <h2>Tabla de supermercados disponibles</h2>
+            <!-- Tabla -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre de supermercados disponibles</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!--Intruccion para hacer el READ-->
+                    {% for lista_supers in data %}
+                        <tr>
+                            <!--listar por super_id y nombre-->
+                            <td>{{lista_supers.id_super}}</td>
+                            <td>{{lista_supers.nom_super}}</td>        
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
