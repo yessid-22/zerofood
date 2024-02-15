@@ -1,0 +1,22 @@
+<!--herrencia de una plantilla jinja2 % instrucion %-->
+{% extends './layout.html' %}
+
+<!--Tituli de la pestaña-->
+{% block title %}{{data.Titulo}}{% endblock %}
+
+{% block body %}
+<h1>{{data.Titulo}}</h1>
+
+
+    <form method="POST" action="/login">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <input type="submit" value="Iniciar Sesión">
+    </form>
+
+<h2>hola pagina de registro</h2>
+{% endblock %}

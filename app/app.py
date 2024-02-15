@@ -33,20 +33,19 @@ def home():
     return render_template('index.html', data=insertObject)
 
 #Ruta para guardar usuarios en la bdd
-@app.route('/user', methods=['POST'])
+@app.route('/', methods=['POST'])
 def addUser():
     username = request.form['username']
     name = request.form['name']
     password = request.form['password']
 
-    if username and name and password:
-        cursor = conexion.connection.cursor()
-        sql = "INSERT INTO users (username, name, password) VALUES (%s, %s, %s)"
-        data = (username, name, password)
-        cursor.execute(sql, data)
-        conexion.commit()
-    return redirect(url_for('home'))
-
+   # if username and name and password:
+   #     cursor = conexion.connection.cursor()
+   #     sql = "INSERT INTO users (username, name, password) VALUES (%s, %s, %s)"
+   #     data = (username, name, password)
+   #     cursor.execute(sql, data)
+   #     conexion.commit()
+    return render_template('login.html')
 @app.route('/delete/<string:id>')
 def delete(id):
     cursor = conexion.connection.cursor()
