@@ -32,7 +32,7 @@ Instalar mysql
 
 (env) PS x:> ```pip list```
 
-Iniciar aplicaion
+Iniciar aplicacion
 
 (env) PS x:> ```python ./app/app.py```
 
