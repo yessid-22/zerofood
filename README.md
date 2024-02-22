@@ -32,6 +32,10 @@ Instalar mysql
 
 (env) PS x:> ```pip list```
 
+Iniciar aplicaion
+
+(env) PS x:> ```python ./app/app.py```
+
 ## Base de datos
 Preparacion de la base de datos
 ```
