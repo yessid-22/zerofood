@@ -8,6 +8,7 @@ Crear entorno virtual en win 10
 x:> ```virtualenv -p python3 env```
 
 Crear entorno virtual en win11
+
 x:> ``` python -m venv env```
 
 Permisos de ejecucion con power shell
