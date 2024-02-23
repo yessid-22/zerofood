@@ -3,9 +3,13 @@ Instalar entorno virtual
 
 x:> ```pip install virtualenv```
 
-Crear entorno virtual
+Crear entorno virtual en win 10
 
 x:> ```virtualenv -p python3 env```
+
+Crear entorno virtual en win11
+
+x:> ``` python -m venv env```
 
 Permisos de ejecucion con power shell
 
@@ -28,6 +32,10 @@ Instalar mysql
 (env) PS x:> ```pip install flask_mysqldb```
 
 (env) PS x:> ```pip list```
+
+Iniciar aplicacion
+
+(env) PS x:> ```python ./app/app.py```
 
 ## Base de datos
 Preparacion de la base de datos
