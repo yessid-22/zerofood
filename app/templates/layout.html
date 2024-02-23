@@ -13,17 +13,20 @@
 <body>
     <!-- NAVIGATION  -->
     <nav class="navbar navbar-dark bg-success">
-        <div class="container">
-          <a class="navbar-brand" href="/">O Food</a>
-        </div>
-        <div>
-          <button type="button" class="btn btn-info">Sobre nosotros</button>
-          <button type="button" class="btn btn-success">Iniciar sesion</button>
-          <button type="button" class="btn btn-success">Registrarse</button>
-        </div>
+      <!--Poner logo-->
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" height="142" width="142"/>
+      <div class="container">
+        <a class="navbar-brand" href="/">O Food</a>
+      </div>
+      
+      <div>
+        <button type="button" class="btn btn-info mb-2 ms-2">Sobre nosotros</button>
+        <button type="button" class="btn btn-success mb-2 ms-2">Iniciar sesion</button>
+        <button type="button" class="btn btn-success mb-2 ms-2">Registrarse</button>
+      </div>
         
 
-      </nav>
+    </nav>
         {% block body %}{% endblock %}
 
 </body>
