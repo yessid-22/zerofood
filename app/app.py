@@ -36,13 +36,13 @@ def home():
 @app.route('/', methods=['POST'])
 def addUser():
     username = request.form['username']
-    name = request.form['name']
+    name = request.form['nom_user']
     password = request.form['password']
 
    # if username and name and password:
    #     cursor = conexion.connection.cursor()
-   #     sql = "INSERT INTO users (username, name, password) VALUES (%s, %s, %s)"
-   #     data = (username, name, password)
+   #     sql = "INSERT INTO users (username, nom_user, password) VALUES (%s, %s, %s)"
+   #     data = (username, nom_user, password)
    #     cursor.execute(sql, data)
    #     conexion.commit()
     return render_template('login.html')
