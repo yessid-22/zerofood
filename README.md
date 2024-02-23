@@ -41,7 +41,7 @@ Iniciar aplicacion
 Preparacion de la base de datos
 ```
 CREATE TABLE supers (
-  id_super INT(6) AUTO_INCREMENT PRIMARY KEY,
+  id_super INT(2) AUTO_INCREMENT PRIMARY KEY,
   nom_super CHAR(16)
 );
 
@@ -58,4 +58,21 @@ CREATE TABLE users (
   password CHAR(120)
 );
 
+CREATE TABLE productos (
+	id_producto INT(2) AUTO_INCREMENT PRIMARY KEY,
+	nombre_producto CHAR(20),
+	cantidad_producto INT(2)
+);
+
+INSERT INTO productos (id_producto, nombre_producto, cantidad_producto) VALUES
+  (1,'Arroz',10),
+  (2,'Azucar',9),
+  (3,'Harina',8),
+  (4,'Fideo',5),
+  (5,'Sal',5),
+  (6,'Aceite',5),
+  (7,'Legumbre',5),
+  (8,'Leche',5),
+  (9,'Cafe',5),
+  (10,'Cacao',5);
 ```
