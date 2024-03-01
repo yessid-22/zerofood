@@ -19,7 +19,7 @@ conexion = MySQL(app)
 
 #ruta raiz
 @app.route('/')
-def home():
+def home():    
     cursor = conexion.connection.cursor()
     sql = "SELECT * FROM supers"
     cursor.execute(sql)
@@ -30,8 +30,9 @@ def home():
     for record in myresult:
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
-    return render_template('index.html', data=insertObject)
-
+    #data, titulo, nom son variavles
+    return render_template('index.html', data=insertObject, titulo="Página principal", nom="supermercados")
+    
 #Ruta para guardar usuarios en la bdd
 @app.route('/', methods=['POST'])
 def addUser():
@@ -66,9 +67,13 @@ def edit(id):
         sql = "UPDATE users SET username = %s, name = %s, password = %s WHERE id = %s"
         data = (username, name, password, id)
         cursor.execute(sql, data)
-        conexion.commit()
+        conexion.commit()    
     return redirect(url_for('home'))
 
+@app.route('/donar/')
+def donar():
+    nom = {'Titulo':'Formulario para donar'}
+    return render_template('donar.html',data=nom)
 #esta instruccion tiene que estar en la ultima posicion
 if __name__ == '__main__':
     #ejecutar app, el debug para hacer cambios en caliente

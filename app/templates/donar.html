@@ -1,0 +1,11 @@
+<!--herrencia de una plantilla jinja2 % instrucion %-->
+{% extends './layout.html' %}
+
+<!--Titulo de la pestaña-->
+{% block title %}{{data.Titulo}}{% endblock %}
+
+{% block titulo %} Juegos {% endblock %}
+{% block body %}
+
+<h1><b>{{data.Titulo}}</b></h1>
+{% endblock %}

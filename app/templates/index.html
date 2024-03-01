@@ -1,7 +1,7 @@
 <!--herrencia de una plantilla jinja2 % instrucion index %-->
 {% extends './layout.html' %}
-
-{% block title %}{{ data.titulo}}{% endblock %}
+<!--variable situado en el return-->
+{% block title %}{{ titulo}}{% endblock %}
 
 {% block body %}
 <h1><!--jinja2 {{ variable }}-->
@@ -27,13 +27,13 @@
 <div class="container">
     <div class="card shadow">
         <div class="card-body">
-            <h2>Tabla de supermercados disponibles</h2>
+            <h2>Tabla de {{nom}} disponibles</h2>
             <!-- Tabla -->
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre de supermercados disponibles</th>
+                        <th scope="col">Nombre de {{nom}} disponibles</th>
                     </tr>
                 </thead>
 
