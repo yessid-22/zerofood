@@ -70,7 +70,7 @@ def edit(id):
         conexion.commit()    
     return redirect(url_for('home'))
 
-@app.route('/donar/')
+@app.route('/donar')
 def donar():
     nom = {'Titulo':'Formulario para donar'}
     return render_template('donar.html',data=nom)
