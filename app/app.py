@@ -73,6 +73,7 @@ def edit(id):
 @app.route('/donar')
 def donar():
     nom = {'Titulo':'Formulario para donar'}
+    sql = "UPDATE productos SET canatidad = %s"
     return render_template('donar.html',data=nom)
 #esta instruccion tiene que estar en la ultima posicion
 if __name__ == '__main__':
