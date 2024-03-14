@@ -1,24 +1,23 @@
 <!--herrencia de una plantilla jinja2 % instrucion index %-->
 {% extends './layout.html' %}
 <!--variable situado en el return-->
-{% block title %}{{ titulo}}{% endblock %}
+{% block title %}{{ nom.Titulo}}{% endblock %}
 
 {% block body %}
 <h1><!--jinja2 {{ variable }}-->
-    {{data.bienvenida}}
+    {{nom.super}}
 </h1>
-<ul>
-    {% for lista in data.Menu %}
-    <li>{{ lista }}</li>
-    {% endfor %}
-</ul>
-<br></br>
+<!--Generar lista de botones-->
+{% for lista in nom.Menu %}
+    <button>{{ lista }}</button>
+{% endfor %}
+<br><br>
 
-<table border="1">
-    {% for lista in data.Menu %}
+<!--Generar lista de nombre de tabla-->
+<table class="table table-bordered">
     
-    <tr><td>{{ lista }} </td></tr>
-    
+    {% for lista in nom.Menu %}
+    <th>{{ lista }}</th>
     {% endfor %}
 </table>
 
@@ -27,13 +26,13 @@
 <div class="container">
     <div class="card shadow">
         <div class="card-body">
-            <h2>Tabla de {{nom}} disponibles</h2>
+            <h2>Tabla de {{nom.super}} disponibles</h2>
             <!-- Tabla -->
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre de {{nom}} disponibles</th>
+                        <th scope="col">Nombre de {{nom.super}} disponibles</th>
                     </tr>
                 </thead>
 

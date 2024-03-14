@@ -1,10 +1,10 @@
 #clase importar flask
-from flask import Flask, render_template, url_for, jsonify, redirect, request
+from flask import Flask, render_template, url_for, jsonify, redirect, request, flash
 
 #para poder usar la base de datos
 from flask_mysqldb import MySQL
 
-#iniciar aplicacion
+#iniciar aplicacion __name__ nombre de la aplicacion
 app = Flask(__name__)
 
 #conexion a base de datos
@@ -31,7 +31,8 @@ def home():
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
     #data, titulo, nom son variavles
-    return render_template('index.html', data=insertObject, titulo="Página principal", nom="supermercados")
+    nom_pag = { 'Titulo':'Página principal','super':'supermercados','Menu':('Sobre nosotros','Iniciar sesion','Registrarse')}
+    return render_template('index.html', data=insertObject, nom=nom_pag)
     
 #Ruta para guardar usuarios en la bdd
 @app.route('/', methods=['POST'])
@@ -70,12 +71,32 @@ def edit(id):
         conexion.commit()    
     return redirect(url_for('home'))
 
-@app.route('/donar')
+@app.route('/donar', methods=['POST','GET'])
 def donar():
-    nom = {'Titulo':'Formulario para donar'}
-    sql = "UPDATE productos SET canatidad = %s"
-    return render_template('donar.html',data=nom)
+    nom_pag = {'Titulo':'Formulario para donar'}
+    cursor = conexion.connection.cursor()
+    sql = "SELECT nombre_producto FROM productos"
+    cursor.execute(sql)
+    ls_productos = cursor.fetchall()
+    
+    insert_product = []
+    columnNames = [column[0] for column in cursor.description]
+    for record in ls_productos:
+        insert_product.append(dict(zip(columnNames, record)))
+    cursor.close()
+
+    return render_template('donar.html', data=insert_product, nom=nom_pag)
+        
+    #if request.method == 'POST':
+    #    nueva_cantidad = request.form.get('cantidad')
+        # Actualiza la base de datos con la nueva cantidad
+        # (debes implementar esta parte según tu modelo de datos)
+        # ...
+    #    return "Cantidad actualizada correctamente"
+    #return render_template('donar.html', nom=nom_pag)
+
 #esta instruccion tiene que estar en la ultima posicion
+# Si el programa principal esta en este script se ejecutara run()
 if __name__ == '__main__':
     #ejecutar app, el debug para hacer cambios en caliente
     app.run(debug=True)

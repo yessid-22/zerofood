@@ -21,14 +21,17 @@
       </div>
       
       <div>
-        <button type="button" class="btn btn-info mb-2 ms-2">Sobre nosotros</button>
+        <button type="button" class="btn btn-info mb-1 ms-1" href="{{ url_for('donar') }}">Sobre nosotros</button>
         <!--cambiar de pagina con jinja2-->
-        <a href="{{ url_for('donar') }}" class="btn btn-info mb-2 ms-2">Pagina donar</a>
-        <button type="button" class="btn btn-success mb-2 ms-2" href="#">Iniciar sesion</button>
-        <button type="button" class="btn btn-success mb-2 ms-2" href="#">Registrarse</button>
+        <a href="{{ url_for('donar') }}" class="btn btn-info mb-1 ms-1">Pagina donar</a>
+        
+        <button type="button" class="btn btn-success mb-1 ms-1" href="#">Iniciar sesion</button>
+        <button type="button" class="btn btn-success mb-1 ms-1" href="#">Registrarse</button>
       </div>
         
-
+      <div class="btn-group mb-3 ms-2">
+        <button type="submit" name="action" value="alta" class="btn btn-success mb-1 ms-1">Alta</button>
+      </div>
     </nav>
         {% block body %}{% endblock %}
 

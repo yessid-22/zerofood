@@ -2,10 +2,53 @@
 {% extends './layout.html' %}
 
 <!--Titulo de la pestaña-->
-{% block title %}{{data.Titulo}}{% endblock %}
+{% block title %}{{nom.Titulo}}{% endblock %}
 
 {% block titulo %} Juegos {% endblock %}
 {% block body %}
 
-<h1><b>{{data.Titulo}}</b></h1>
+<h1><b>{{nom.Titulo}}</b></h1>
+<br><br>
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <h2>Tabla de productos disponibles</h2>
+            <!-- Tabla -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Seleccionar</th>
+                        <th scope="col">Nombre de productos disponibles</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!--Intruccion para hacer el READ-->
+                    {% for producto in data %}
+                        <tr>
+                            <!--listar por super_id y nombre-->
+                            <td><input type="checkbox" name="select[]" value=""></td>
+                            <td>{{ producto.nombre_producto }}</td>      
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br>
+
+<h2>segunda parte</h2>
+
+<form method="POST" action="">
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" id="cantidad" name="cantidad" required>
+    <input type="submit" value="Actualizar">
+</form>
+
+<strong>Producto</strong>
+<br>
+<strong>Cantidad</strong>
+<br>
+
 {% endblock %}
