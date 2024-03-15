@@ -38,11 +38,11 @@
 
                 <tbody>
                     <!--Intruccion para hacer el READ-->
-                    {% for lista_supers in data %}
+                    {% for lista_supers in supers %}
                         <tr>
-                            <!--listar por super_id y nombre-->
-                            <td>{{lista_supers.id_super}}</td>
-                            <td>{{lista_supers.nom_super}}</td>        
+                            <!--listar por super_id y nombre con el orden de consulta-->
+                            <td>{{lista_supers[0]}}</td>
+                            <td>{{lista_supers[1]}}</td>        
                         </tr>
                     {% endfor %}
                 </tbody>

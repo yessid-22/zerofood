@@ -23,16 +23,20 @@ def home():
     cursor = conexion.connection.cursor()
     sql = "SELECT * FROM supers"
     cursor.execute(sql)
-    myresult = cursor.fetchall()
-    # Convertir los datos a diccionario
+    ls_supers = cursor.fetchall()
+
+    # Solo funciona con letras
+    """
     insertObject = []
     columnNames = [column[0] for column in cursor.description]
     for record in myresult:
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
+    """
+    cursor.close()
     # Data, titulo, nom son variavles
     nom_pag = { 'Titulo':'Página principal','super':'supermercados','Menu':('Sobre nosotros','Iniciar sesion','Registrarse')}
-    return render_template('index.html', data=insertObject, nom=nom_pag)
+    return render_template('index.html', supers=ls_supers, nom=nom_pag)
     
 # Ruta para guardar usuarios en la bdd
 @app.route('/', methods=['POST'])
@@ -71,7 +75,7 @@ def edit(id):
         conexion.commit()    
     return redirect(url_for('home'))
 
-@app.route('/donar', methods=['POST'])
+@app.route('/donar', methods=['POST','GET'])
 def donar():
     # Diccionario nombre pagina, pestaña
     nom_pag = {'Titulo':'Formulario para donar'}
