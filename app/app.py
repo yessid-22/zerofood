@@ -71,19 +71,23 @@ def edit(id):
         conexion.commit()    
     return redirect(url_for('home'))
 
-@app.route('/donar', methods=['POST','GET'])
+@app.route('/donar', methods=['POST'])
 def donar():
+    # Diccionario nombre pagina, pestaña
     nom_pag = {'Titulo':'Formulario para donar'}
+    # Hacer la conexion a base de datos
     cursor = conexion.connection.cursor()
     sql = """SELECT 
                 p.*, 
                 cd.cantidad
             FROM productos p
             INNER JOIN cantidad_disponible cd ON p.cantidad_id = cd.cantidad_id"""
+    # Ejecutar la consulta
     cursor.execute(sql)
+    # Poner en una lista
     ls_productos = cursor.fetchall()
     cursor.close()
-    
+    # variables para jinja2
     return render_template('donar.html', productos=ls_productos, nom=nom_pag)
         
     #if request.method == 'POST':
