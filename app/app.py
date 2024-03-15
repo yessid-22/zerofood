@@ -1,40 +1,40 @@
-#clase importar flask
+# Clase importar flask
 from flask import Flask, render_template, url_for, jsonify, redirect, request, flash
 
-#para poder usar la base de datos
+# Para poder usar la base de datos
 from flask_mysqldb import MySQL
 
-#iniciar aplicacion __name__ nombre de la aplicacion
+# Iniciar aplicacion __name__ nombre de la aplicacion
 app = Flask(__name__)
 
-#conexion a base de datos
+# Conexion a base de datos
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'zerofood_db'
 
-#variable para conectarse a la base de datos
+# Variable para conectarse a la base de datos
 conexion = MySQL(app)
 
-#ruta raiz
+# Ruta raiz
 @app.route('/')
 def home():    
     cursor = conexion.connection.cursor()
     sql = "SELECT * FROM supers"
     cursor.execute(sql)
     myresult = cursor.fetchall()
-    #Convertir los datos a diccionario
+    # Convertir los datos a diccionario
     insertObject = []
     columnNames = [column[0] for column in cursor.description]
     for record in myresult:
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
-    #data, titulo, nom son variavles
+    # Data, titulo, nom son variavles
     nom_pag = { 'Titulo':'Página principal','super':'supermercados','Menu':('Sobre nosotros','Iniciar sesion','Registrarse')}
     return render_template('index.html', data=insertObject, nom=nom_pag)
     
-#Ruta para guardar usuarios en la bdd
+# Ruta para guardar usuarios en la bdd
 @app.route('/', methods=['POST'])
 def addUser():
     username = request.form['username']
@@ -77,6 +77,7 @@ def donar():
     nom_pag = {'Titulo':'Formulario para donar'}
     # Hacer la conexion a base de datos
     cursor = conexion.connection.cursor()
+    # Consulta con join de dos tablas
     sql = """SELECT 
                 p.*, 
                 cd.cantidad
@@ -87,7 +88,7 @@ def donar():
     # Poner en una lista
     ls_productos = cursor.fetchall()
     cursor.close()
-    # variables para jinja2
+    # Variables para jinja2
     return render_template('donar.html', productos=ls_productos, nom=nom_pag)
         
     #if request.method == 'POST':
