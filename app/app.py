@@ -75,7 +75,7 @@ def edit(id):
 def donar():
     nom_pag = {'Titulo':'Formulario para donar'}
     cursor = conexion.connection.cursor()
-    sql = "SELECT nombre_producto FROM productos"
+    sql = "SELECT productos.*, cantidad_disponible.cantidad_id FROM productos INNER JOIN cantidad_disponible ON productos.cantidad_id = cantidad_disponible.cantidad_id"
     cursor.execute(sql)
     ls_productos = cursor.fetchall()
     

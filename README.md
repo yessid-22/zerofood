@@ -61,18 +61,36 @@ CREATE TABLE users (
 CREATE TABLE productos (
 	id_producto INT(2) AUTO_INCREMENT PRIMARY KEY,
 	nombre_producto CHAR(20),
-	cantidad_producto INT(2)
+	precio DECIMAL(4,2)
 );
 
-INSERT INTO productos (id_producto, nombre_producto, cantidad_producto) VALUES
-  (1,'Arroz',10),
-  (2,'Azucar',9),
-  (3,'Harina',8),
-  (4,'Fideo',5),
-  (5,'Sal',5),
-  (6,'Aceite',5),
-  (7,'Legumbre',5),
-  (8,'Leche',5),
-  (9,'Cafe',5),
-  (10,'Cacao',5);
+INSERT INTO productos (id_producto, nombre_producto, precio) VALUES
+  (1,'Arroz',1.30),
+  (2,'Azucar',1.45),
+  (3,'Harina',1.42),
+  (4,'Fideo',1.62),
+  (5,'Sal',0.35),
+  (6,'Aceite',1.45),
+  (7,'Lentaja',2.09),
+  (8,'Leche',1.06),
+  (9,'Cafe',2.09),
+  (10,'Cacao',2.69);
+
+CREATE TABLE cantidad_disponible (
+    id_producto INT(2),
+    cantidad INT(2)
+);
+
+INSERT INTO cantidad_disponible (id_producto, cantidad) VALUES
+  (1,10),
+  (2,9),
+  (3,8),
+  (4,5),
+  (5,5),
+  (6,5),
+  (7,5),
+  (8,5),
+  (9,5),
+  (10,5);
+
 ```
