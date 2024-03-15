@@ -19,19 +19,19 @@
                     <tr>
                         
                         <th scope="col">Nombre de productos disponibles</th>
-                        <th scope="col">Precio</th>
+                        <th scope="col">Precio por unidad</th>
                         <th scope="col">Comprar cantidad</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <!--Intruccion para hacer el READ-->
-                    {% for producto in data %}
+                    {% for producto in productos %}
                         <tr>
                             <!--listar por super_id y nombre--> 
-                            <td>{{ producto.nombre_producto }}</td>
-                            <td>{{ producto.precio }}</td>
-                            <td>1 = {{ producto[1]}}</td> 
+                            <td>{{ producto[1] }}</td>
+                            <td>{{ producto[2] }} €</td>
+                            <td>{{ producto[4]}}</td> 
                         </tr>
                     {% endfor %}
                 </tbody>

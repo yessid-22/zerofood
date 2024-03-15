@@ -75,17 +75,16 @@ def edit(id):
 def donar():
     nom_pag = {'Titulo':'Formulario para donar'}
     cursor = conexion.connection.cursor()
-    sql = "SELECT productos.*, cantidad_disponible.cantidad_id FROM productos INNER JOIN cantidad_disponible ON productos.cantidad_id = cantidad_disponible.cantidad_id"
+    sql = """SELECT 
+                p.*, 
+                cd.cantidad
+            FROM productos p
+            INNER JOIN cantidad_disponible cd ON p.cantidad_id = cd.cantidad_id"""
     cursor.execute(sql)
     ls_productos = cursor.fetchall()
-    
-    insert_product = []
-    columnNames = [column[0] for column in cursor.description]
-    for record in ls_productos:
-        insert_product.append(dict(zip(columnNames, record)))
     cursor.close()
-
-    return render_template('donar.html', data=insert_product, nom=nom_pag)
+    
+    return render_template('donar.html', productos=ls_productos, nom=nom_pag)
         
     #if request.method == 'POST':
     #    nueva_cantidad = request.form.get('cantidad')
