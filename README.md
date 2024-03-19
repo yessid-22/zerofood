@@ -41,15 +41,15 @@ Iniciar aplicacion
 Preparacion de la base de datos
 ```
 CREATE TABLE supers (
-  id_super INT(2) AUTO_INCREMENT PRIMARY KEY,
+  id_super INT(3) AUTO_INCREMENT PRIMARY KEY,
   nom_super CHAR(16)
 );
 
 INSERT INTO supers (id_super, nom_super) VALUES
-  (1, 'Carrefour'),
-  (2, 'Mercadona'),
-  (3, 'Alcampo'),
-  (4, 'Eroski');
+  (100, 'Carrefour'),
+  (200, 'Mercadona'),
+  (300, 'Alcampo'),
+  (400, 'Eroski');
 
 CREATE TABLE users (
   id_user INT(6) AUTO_INCREMENT PRIMARY KEY,
@@ -76,21 +76,23 @@ INSERT INTO productos (id_producto, nombre_producto, precio) VALUES
   (9,'Cafe',2.09),
   (10,'Cacao',2.69);
 
-CREATE TABLE cantidad_disponible (
-    id_producto INT(2),
+CREATE TABLE cantidades (
+    id_cantidad INT(6) AUTO_INCREMENT PRIMARY KEY,
+    id_producto INT(3),
+    id_super INT(3),
     cantidad INT(2)
 );
 
-INSERT INTO cantidad_disponible (id_producto, cantidad) VALUES
-  (1,10),
-  (2,9),
-  (3,8),
-  (4,5),
-  (5,5),
-  (6,5),
-  (7,5),
-  (8,5),
-  (9,5),
-  (10,5);
+INSERT INTO cantidades (id_cantidad, id_producto, id_super, cantidad) VALUES
+  (100001,1,100,10),
+  (200001,2,200,9),
+  (300001,3,300,8),
+  (400001,4,400,5),
+  (500001,5,100,3),
+  (600001,6,100,5),
+  (700001,7,100,7),
+  (800001,8,100,9),
+  (900001,9,100,0),
+  (1000001,10,100,7);
 
 ```

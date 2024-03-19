@@ -118,9 +118,9 @@ def donar():
     # Consulta con join de dos tablas
     sql = """SELECT 
                 p.*, 
-                cd.cantidad
+                c.cantidad
             FROM productos p
-            INNER JOIN cantidad_disponible cd ON p.cantidad_id = cd.cantidad_id"""
+            INNER JOIN cantidades c ON p.id_producto = c.id_producto"""
     # Ejecutar la consulta
     cursor.execute(sql)
     # Poner en una lista
