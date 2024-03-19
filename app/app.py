@@ -1,11 +1,14 @@
 # Clase importar flask
-from flask import Flask, render_template, url_for, jsonify, redirect, request, flash
+from flask import Flask, render_template, url_for, jsonify, redirect, request, flash, session
 
 # Para poder usar la base de datos
 from flask_mysqldb import MySQL
 
 # Iniciar aplicacion __name__ nombre de la aplicacion
 app = Flask(__name__)
+
+# Configuración de la clave secreta
+app.config['SECRET_KEY'] = 'tu_clave_secreta_aqui'
 
 # Conexion a base de datos
 
@@ -19,24 +22,32 @@ conexion = MySQL(app)
 
 # Ruta raiz
 @app.route('/')
-def home():    
-    cursor = conexion.connection.cursor()
-    sql = "SELECT * FROM supers"
-    cursor.execute(sql)
-    ls_supers = cursor.fetchall()
+def home():
+    try:
+        cursor = conexion.connection.cursor()
+        sql = "SELECT * FROM supers"
+        cursor.execute(sql)
+        ls_supers = cursor.fetchall()
+        cursor.close()
+    except Exception as e:
+        # Mensaje de error
+        print(f"Error al conectar con la base de datos: {e}")
+    
+        nom_pag = { 'Titulo':'Página principal','super':'supermercados','Menu':('Sobre nosotros','Iniciar sesion','Registrarse')}        
+        mensaje = "No se pudo conectar con la base de datos. Por favor, intente más tarde."
+        # Variables para jinja2
+        return render_template('index.html', mensaje=mensaje, nom=nom_pag)
+    
+    # Verificar si ls_supers está vacío
+    if not ls_supers:
+        mensaje = "No hay datos disponibles."
+        nom_pag = { 'Titulo':'Página principal','super':'supermercados','Menu':('Sobre nosotros','Iniciar sesion','Registrarse')}
+        return render_template('index.html', mensaje=mensaje, nom=nom_pag)
+    else:
+        nom_pag = { 'Titulo':'Página principal','super':'supermercados','Menu':('Sobre nosotros','Iniciar sesion','Registrarse')}
+        return render_template('index.html', supers=ls_supers, nom=nom_pag)
 
-    # Solo funciona con letras
-    """
-    insertObject = []
-    columnNames = [column[0] for column in cursor.description]
-    for record in myresult:
-        insertObject.append(dict(zip(columnNames, record)))
-    cursor.close()
-    """
-    cursor.close()
-    # Data, titulo, nom son variavles
-    nom_pag = { 'Titulo':'Página principal','super':'supermercados','Menu':('Sobre nosotros','Iniciar sesion','Registrarse')}
-    return render_template('index.html', supers=ls_supers, nom=nom_pag)
+    #return render_template('index.html', supers=ls_supers, nom=nom_pag)
     
 # Ruta para guardar usuarios en la bdd
 @app.route('/', methods=['POST'])
@@ -79,6 +90,29 @@ def edit(id):
 def donar():
     # Diccionario nombre pagina, pestaña
     nom_pag = {'Titulo':'Formulario para donar'}
+
+    if request.method == 'POST':
+        id_producto = request.form.get('id_producto')
+        nueva_cantidad = request.form.get('cantidad')
+        # Aquí debes implementar la lógica para actualizar la cantidad del producto
+        # Esto puede variar dependiendo de cómo esté estructurada tu base de datos
+        try:
+            cursor = conexion.connection.cursor()
+            # Suponiendo que tienes una columna para la cantidad total donada en tu tabla de productos
+            sql = """
+                    UPDATE cantidad_disponible cd
+                        INNER JOIN productos p ON cd.cantidad_id = p.cantidad_id 
+                    SET cd.cantidad = cd.cantidad + %s 
+                        WHERE p.id_producto = %s
+            """
+            cursor.execute(sql, (nueva_cantidad, id_producto))
+            conexion.connection.commit()
+            cursor.close()
+            flash('Donación realizada con éxito', 'success')
+        except Exception as e:
+            flash(f'Error al realizar la donación: {e}', 'danger')
+        return redirect(url_for('donar'))
+
     # Hacer la conexion a base de datos
     cursor = conexion.connection.cursor()
     # Consulta con join de dos tablas

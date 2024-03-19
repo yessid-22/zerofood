@@ -47,8 +47,16 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <!--Mostrar mensaje de error con jinja2-->
+            {% if mensaje %}
+                <div class="p-3 mb-2 bg-danger text-white">{{ mensaje }}</div>
+            {% endif %}    
+
         </div>
     </div>
 </div>
+
+<br><br>
 
 {% endblock %}
