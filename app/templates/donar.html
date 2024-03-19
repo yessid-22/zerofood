@@ -36,22 +36,31 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <h2>Elegir cantidad</h2>
+
+            <form action="/donar" method="post">
+                <select name="id_producto">
+                    {% for producto in productos %}
+                    <option value="{{ producto.id }}">{{ producto[1] }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" name="cantidad" min="1" placeholder="Cantidad">
+                <button type="submit">Donar</button>
+            </form>
+
+            <br><br>
+            <!-- Mensajes flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
     </div>
 </div>
 <br><br>
-
-<h2>segunda parte</h2>
-
-<form method="POST" action="">
-    <label for="cantidad">Cantidad:</label>
-    <input type="number" id="cantidad" name="cantidad" required>
-    <input type="submit" value="Actualizar">
-</form>
-
-<strong>Producto</strong>
-<br>
-<strong>Cantidad</strong>
-<br>
 
 {% endblock %}
