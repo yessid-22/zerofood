@@ -42,16 +42,32 @@
             <form action="/donar" method="post">
                 <select name="id_producto">
                     {% for producto in productos %}
-                    <option value="{{ producto.id }}">{{ producto[1] }}</option>
+                    <option value="{{ producto[0] }}">{{ producto[1] }}</option>
                     {% endfor %}
                 </select>
-                <input type="number" name="cantidad" min="1" placeholder="Cantidad">
+                <input type="number" name="cantidad" min="1" value="1" placeholder="Cantidad">
                 <button type="submit">Donar</button>
             </form>
 
+            
+            <h2>Productos Disponibles v2</h2>
+                <ul>
+                    {% for producto in productos %}
+                    <!--Listar por nombre precio cantidad-->
+                    <li>{{ producto[1] }} - {{ producto[2]}} €
+                        <form action="/donar" method="post">
+                            <input type="hidden" name="id_producto" value="{{ producto[0] }}">
+                            <input type="number" name="cantidad" min="1" value="1">
+                            <input type="submit" value="Añadir al carro">
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            
             <br><br>
             <!-- Mensajes flash -->
             {% with messages = get_flashed_messages(with_categories=true) %}
+                <!--Si hay mensajes-->
                 {% if messages %}
                     {% for category, message in messages %}
                         <div class="alert alert-{{ category }}">{{ message }}</div>

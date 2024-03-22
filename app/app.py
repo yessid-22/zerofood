@@ -90,32 +90,36 @@ def edit(id):
 def donar():
     # Diccionario nombre pagina, pestaña
     nom_pag = {'Titulo':'Formulario para donar'}
-
+    # Si el metodo es POST
     if request.method == 'POST':
+        # Obtener el id_producto y cantidad
         id_producto = request.form.get('id_producto')
         nueva_cantidad = request.form.get('cantidad')
-        # Aquí debes implementar la lógica para actualizar la cantidad del producto
-        # Esto puede variar dependiendo de cómo esté estructurada tu base de datos
+        # Actualizar la cantidad del producto
         try:
             cursor = conexion.connection.cursor()
             # Suponiendo que tienes una columna para la cantidad total donada en tu tabla de productos
             sql = """
-                    UPDATE cantidad_disponible cd
-                        INNER JOIN productos p ON cd.cantidad_id = p.cantidad_id 
+                    UPDATE cantidades cd
+                        INNER JOIN productos p ON cd.id_producto = p.id_producto 
                     SET cd.cantidad = cd.cantidad + %s 
                         WHERE p.id_producto = %s
             """
             cursor.execute(sql, (nueva_cantidad, id_producto))
+            # Confirmar la transacción y guardar
             conexion.connection.commit()
+            # Cerrar el cursor
             cursor.close()
+            # Mensaje de exito
             flash('Donación realizada con éxito', 'success')
         except Exception as e:
+            # Mensaje de error
             flash(f'Error al realizar la donación: {e}', 'danger')
         return redirect(url_for('donar'))
 
     # Hacer la conexion a base de datos
     cursor = conexion.connection.cursor()
-    # Consulta con join de dos tablas
+    # Consulta con join de dos tablas para hacer la lista de productos con su cantidad
     sql = """SELECT 
                 p.*, 
                 c.cantidad
@@ -128,16 +132,6 @@ def donar():
     cursor.close()
     # Variables para jinja2
     return render_template('donar.html', productos=ls_productos, nom=nom_pag)
-        
-    #if request.method == 'POST':
-    #    nueva_cantidad = request.form.get('cantidad')
-        # Actualiza la base de datos con la nueva cantidad
-        # (debes implementar esta parte según tu modelo de datos)
-        # ...
-    #    return "Cantidad actualizada correctamente"
-    #return render_template('donar.html', nom=nom_pag)
-
-#esta instruccion tiene que estar en la ultima posicion
 # Si el programa principal esta en este script se ejecutara run()
 if __name__ == '__main__':
     #ejecutar app, el debug para hacer cambios en caliente
