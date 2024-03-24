@@ -65,6 +65,16 @@
                 </ul>
             
             <br><br>
+
+            <form action="/productos" method="post">
+                <select name="supermercado">
+                    {% for supermercado in supermercados %}
+                        <option value="{{ id_super }}">{{ super[1] }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Ver Productos</button>
+            </form>
+            <br><br>
             <!-- Mensajes flash -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 <!--Si hay mensajes-->

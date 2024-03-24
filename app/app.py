@@ -95,6 +95,13 @@ def donar():
         # Obtener el id_producto y cantidad
         id_producto = request.form.get('id_producto')
         nueva_cantidad = request.form.get('cantidad')
+
+        # Obtener el id del super seleccionado desde el formulario
+        id_super = request.form['supermercado']
+        # Obtener los productos del supermercado seleccionado desde la base de datos
+        cursor.execute("SELECT * FROM productos WHERE id_super = %s", (id_super,))
+        productos = cursor.fetchall()
+        return render_template('donar.html', productos=productos)
         # Actualizar la cantidad del producto
         try:
             cursor = conexion.connection.cursor()
